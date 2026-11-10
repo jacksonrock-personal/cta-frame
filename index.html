@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTA Frame</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  html, body { margin: 0; height: 100%; background: #0E1116; overflow: hidden; }
+  body { color: #F2F4F7; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .num { font-family: "Space Grotesk", Inter, system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+  #stage { position: absolute; left: 0; top: 0; width: 1280px; height: 800px; transform-origin: 0 0;
+    box-sizing: border-box; padding: 28px 32px; display: flex; flex-direction: column; }
+  .top { display: flex; height: 470px; }
+  .card { background: #171B22; border-radius: 22px; box-sizing: border-box; }
+  .big { padding: 24px 30px; display: flex; flex-direction: column; }
+  .train { flex: 1.62; margin-right: 22px; }
+  .bus74 { flex: 1; }
+  .head { display: flex; align-items: center; margin-bottom: 18px; }
+  .badge { height: 48px; min-width: 64px; padding: 0 12px; box-sizing: border-box; border-radius: 12px; background: #E8EBEF;
+    color: #0E1116; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; margin-right: 14px; }
+  .badge.blue { background: #00A1DE; min-width: 48px; padding: 0; }
+  .title { font-size: 28px; font-weight: 600; line-height: 1.1; }
+  .sub { font-size: 17px; color: #9AA4B2; }
+  .cols { display: flex; flex: 1; }
+  .col { flex: 1; display: flex; flex-direction: column; padding: 0 24px; border-left: 1px solid #262C36; }
+  .bus74 .col, .cols .col:first-child { padding-left: 0; border: 0; }
+  .dir { font-size: 20px; font-weight: 600; color: #C9D0D9; margin-bottom: 8px; }
+  .first { display: flex; align-items: baseline; }
+  .first .n { font-size: 140px; font-weight: 700; line-height: 1; }
+  .first .u { font-size: 26px; font-weight: 500; margin: 0 10px; }
+  .chip { display: inline-block; font-size: 16px; font-weight: 700; color: #0E1116; border-radius: 8px; padding: 5px 12px; margin-top: 8px; }
+  .rest { display: flex; margin-top: auto; }
+  .rest .a { display: flex; align-items: baseline; margin-right: 30px; }
+  .rest .n { font-size: 44px; font-weight: 600; }
+  .rest .u { font-size: 17px; margin: 0 6px; }
+  .none { font-size: 22px; color: #9AA4B2; padding-top: 24px; }
+  .bottom { display: flex; flex: 1; margin-top: 22px; }
+  .small { flex: 1; padding: 18px 24px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 18px; }
+  .small + .small { margin-left: 22px; }
+  .small .badge { height: 38px; min-width: 52px; font-size: 21px; border-radius: 10px; padding: 0 10px; margin-right: 12px; }
+  .small .name { font-size: 19px; font-weight: 600; }
+  .small .name span { font-weight: 500; color: #C9D0D9; }
+  .small .sub { font-size: 15px; }
+  .times { display: flex; align-items: baseline; }
+  .times .a { display: flex; align-items: baseline; margin-right: 22px; }
+  .times .n { font-size: 54px; font-weight: 600; }
+  .times .u { font-size: 16px; margin: 0 5px; }
+  .times .none { font-size: 17px; padding: 0; }
+  .dly { margin-left: auto; align-self: center; font-size: 14px; font-weight: 600; border: 1.5px solid #9AA4B2; border-radius: 8px; padding: 3px 10px; }
+  svg.wifi { flex: none; }
+  #stage.stale .card { opacity: 0.35; }
+  #banner { display: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: #2A1215; border: 2px solid #FF6B6B; color: #F2F4F7; border-radius: 16px; padding: 18px 28px; font-size: 26px; font-weight: 600; text-align: center; }
+  #banner small { display: block; font-size: 16px; font-weight: 500; color: #C9D0D9; margin-top: 6px; }
+  #stage.stale #banner { display: block; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="top">
+    <div class="card big train">
+      <div class="head">
+        <div class="badge blue"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0E1116" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"></rect><path d="M5 10h14"></path><path d="M9 21l1.5-4M15 21l-1.5-4"></path><path d="M9 13.5h.01M15 13.5h.01"></path></svg></div>
+        <div><div class="title">Blue Line</div><div class="sub">California · 10 min walk</div></div>
+      </div>
+      <div class="cols">
+        <div class="col"><div class="dir">To O’Hare</div><div id="t-ohare" class="slot"></div></div>
+        <div class="col"><div class="dir">To Loop / Forest Park</div><div id="t-fp" class="slot"></div></div>
+      </div>
+    </div>
+    <div class="card big bus74">
+      <div class="head">
+        <div class="badge num">74</div>
+        <div><div class="title">Fullerton</div><div class="sub">Fullerton &amp; Albany · 5 min walk</div></div>
+      </div>
+      <div class="col"><div class="dir">Eastbound</div><div id="b-74" class="slot"></div></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="card small"><div class="head" style="margin:0"><div class="badge num">73</div><div><div class="name">Armitage <span>· East</span></div><div class="sub">Armitage &amp; Kedzie · 8 min walk</div></div></div><div id="b-73" class="times"></div></div>
+    <div class="card small"><div class="head" style="margin:0"><div class="badge num">72</div><div><div class="name">North <span>· East</span></div><div class="sub">North &amp; Kedzie · 15 min walk</div></div></div><div id="b-72" class="times"></div></div>
+    <div class="card small"><div class="head" style="margin:0"><div class="badge num">82</div><div><div class="name">Kimball-Homan <span>· North</span></div><div class="sub">Fullerton &amp; Kimball · 8 min walk</div></div></div><div id="b-82" class="times"></div></div>
+  </div>
+  <div id="banner">Connection lost<small id="banner-sub">Times may be out of date</small></div>
+</div>
+<script>
+(function () {
+  var API = "https://sxkqnvaparmqnvehjwhp.supabase.co/functions/v1/cta-arrivals";
+  var POLL_MS = 30000;
+  var STALE_MS = 120000;
+  var WALK = { ohare: 10, forestPark: 10, "74": 5, "73": 8, "72": 15, "82": 8 };
+  var COLORS = { walk: "#F2F4F7", leave: "#FBBF24", run: "#FF6B6B" };
+  var LABELS = { walk: "Time to walk", leave: "Leave now", run: "Run!" };
+
+  var state = { train: null, bus: null, trainAt: 0, busAt: 0, skew: 0 };
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 800);
+    var st = document.getElementById("stage");
+    st.style.transform = "scale(" + s + ")";
+    st.style.left = Math.max(0, (window.innerWidth - 1280 * s) / 2) + "px";
+    st.style.top = Math.max(0, (window.innerHeight - 800 * s) / 2) + "px";
+  }
+
+  function tier(m, walk) {
+    if (m >= walk + 3) return "walk";
+    if (m >= walk) return "leave";
+    if (m >= Math.ceil(walk * 0.6)) return "run";
+    return null;
+  }
+
+  function wifi(size) {
+    return '<svg class="wifi" role="img" aria-label="Live" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5a11.5 11.5 0 0 1 16 0"></path><path d="M7.5 13a6.5 6.5 0 0 1 9 0"></path><path d="M12 17h.01"></path></svg>';
+  }
+
+  // Live arrivals you can still catch, as {num, unit, tier, delayed}.
+  function catchable(list, walk) {
+    var out = [], now = Date.now() - state.skew;
+    for (var i = 0; list && i < list.length; i++) {
+      var m = Math.floor((list[i].etaMs - now) / 60000);
+      if (m < 0) continue;
+      var t = tier(m, walk);
+      if (!t) continue;
+      out.push({ num: m === 0 ? "Due" : String(m), unit: m === 0 ? "" : "min", tier: t, delayed: list[i].delayed });
+    }
+    return out;
+  }
+
+  function item(a, cls, iconSize) {
+    return '<div class="a" style="color:' + COLORS[a.tier] + '"><span class="n num">' + a.num + '</span><span class="u">' + a.unit + '</span>' + wifi(iconSize) + '</div>';
+  }
+
+  function hero(id, list, walk, noun) {
+    var arr = catchable(list, walk), el = document.getElementById(id);
+    if (!arr.length) { el.innerHTML = '<div class="none">No live ' + noun + ' you can catch right now</div>'; return; }
+    var f = arr[0], rest = "";
+    for (var i = 1; i < arr.length && i < 3; i++) rest += item(arr[i], "", 22);
+    el.style.display = "flex"; el.style.flexDirection = "column"; el.style.flex = "1";
+    el.innerHTML =
+      '<div class="first" style="color:' + COLORS[f.tier] + '"><span class="n num">' + f.num + '</span><span class="u">' + f.unit + '</span>' + wifi(34) + '</div>' +
+      '<div><span class="chip" style="background:' + COLORS[f.tier] + '">' + LABELS[f.tier] + '</span>' + (f.delayed ? ' <span class="dly" style="margin-left:8px">Delayed</span>' : '') + '</div>' +
+      '<div class="rest">' + rest + '</div>';
+  }
+
+  function small(rt, list) {
+    var arr = catchable(list, WALK[rt]), el = document.getElementById("b-" + rt), html = "", dly = false;
+    for (var i = 0; i < arr.length && i < 2; i++) { html += item(arr[i], "", 20); if (arr[i].delayed) dly = true; }
+    if (!arr.length) html = '<span class="none">No live buses right now</span>';
+    if (dly) html += '<span class="dly">Delayed</span>';
+    el.innerHTML = html;
+  }
+
+  function render() {
+    var t = state.train || {}, b = state.bus || {};
+    hero("t-ohare", t.ohare, WALK.ohare, "trains");
+    hero("t-fp", t.forestPark, WALK.forestPark, "trains");
+    hero("b-74", b["74"], WALK["74"], "buses");
+    small("73", b["73"]); small("72", b["72"]); small("82", b["82"]);
+    var now = Date.now();
+    var stale = !state.trainAt || !state.busAt || now - state.trainAt > STALE_MS || now - state.busAt > STALE_MS;
+    document.getElementById("stage").className = stale ? "stale" : "";
+    if (stale) {
+      var last = Math.min(state.trainAt || 0, state.busAt || 0);
+      document.getElementById("banner-sub").textContent = last ? "Last update " + Math.round((now - last) / 60000) + " min ago" : "Waiting for first update…";
+    }
+  }
+
+  function poll() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", API + "?t=" + Date.now(), true);
+    xhr.timeout = 15000;
+    xhr.onload = function () {
+      try {
+        var d = JSON.parse(xhr.responseText);
+        // Frame clock may be off; measure it against the server's clock.
+        if (d.serverNow) state.skew = Date.now() - d.serverNow;
+        if (d.train) { state.train = d.train; state.trainAt = Date.now(); }
+        if (d.bus) { state.bus = d.bus; state.busAt = Date.now(); }
+      } catch (e) {}
+      render();
+    };
+    xhr.onerror = xhr.ontimeout = render;
+    xhr.send();
+  }
+
+  window.addEventListener("resize", fit);
+  fit();
+  render();
+  poll();
+  setInterval(poll, POLL_MS);
+  setInterval(render, 5000);
+  // Reload every 6 hours to pick up page changes and clear any memory creep.
+  setTimeout(function () { location.reload(); }, 6 * 3600 * 1000);
+})();
+</script>
+</body>
+</html>
